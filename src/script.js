@@ -1,14 +1,15 @@
 console.log("script");
+import "./style.css";
 
 // document.getElementById("pesquisar").addEventListener("click", buscarGif);
 const form = document.querySelector("form");
 const resultContainer = document.querySelector(".result");
 const toggle = document.querySelector(".toggle");
 let forecastData_ = null;
-let tempInF = false;
+let tempToF = false;
 
 toggle.addEventListener("click", (e) => {
-    tempInF = e.currentTarget.firstElementChild.checked;
+    tempToF = e.currentTarget.firstElementChild.checked;
     buildForecastTable(forecastData_);
 })
 
@@ -23,16 +24,16 @@ form.addEventListener("submit", (e) => {
 
 function convertToF(t, convert) {
     if (convert)
-        return (t * (9 / 5) + 32).toFixed(1);
-    return t;
+        return (t * (9 / 5) + 32).toFixed(1) + "°F";
+    return t + "°C";
 }
 
-function buildForecastTable(forecastData) {
+async function buildForecastTable(forecastData) {
     if (!forecastData) return;
     const tbody = document.querySelector("tbody");
     tbody.innerText = '';
     console.log(forecastData);
-    for (day of forecastData["days"]) {
+    for (const day of forecastData["days"]) {
         const newRow = document.createElement("tr");
         const condition = document.createElement("td");
         const conditionImg = document.createElement("img");
@@ -41,12 +42,12 @@ function buildForecastTable(forecastData) {
         const tMin = document.createElement("td");
         const tMax = document.createElement("td");
         //Forma usando link externo -> conditionImg.src = `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/2nd%20Set%20-%20Color/${day["icon"]}.svg`;
-        conditionImg.src = `./icons/${day["icon"]}.svg`;
+        conditionImg.src = (await import(`./icons/${day["icon"]}.svg`)).default;
         condition.append(conditionImg);
         date.innerText = day["datetime"];
         forecast.innerText = day["conditions"];
-        tMin.innerText = convertToF(day["tempmin"], tempInF);
-        tMax.innerText = convertToF(day["tempmax"], tempInF);
+        tMin.innerText = convertToF(day["tempmin"], tempToF);
+        tMax.innerText = convertToF(day["tempmax"], tempToF);
         newRow.append(condition);
         newRow.append(date);
         newRow.append(forecast);
