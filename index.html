@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+    <div class="container">
+        <form>
+            <label for="city">City name:</label>
+            <input type="text" name="city" id="city" required>
+            <input type="submit" value="Search">
+
+            <span>°C</span>
+            <label class="toggle">
+                <input type="checkbox" id="btnToggle" name="btnToggle" />
+                <span class="slider"></span>
+            </label>
+            <span>°F</span>
+
+        </form>
+        <div class="result">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Condition</th>
+                        <th>Date</th>
+                        <th>Forecast</th>
+                        <th>Minimum Temperature</th>
+                        <th>Maximum Temperature</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
+
 </html>
