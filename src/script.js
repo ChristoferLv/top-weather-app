@@ -3,8 +3,10 @@ import "./style.css";
 
 // document.getElementById("pesquisar").addEventListener("click", buscarGif);
 const form = document.querySelector("form");
+const table = document.querySelector("table");
 const resultContainer = document.querySelector(".result");
 const toggle = document.querySelector(".toggle");
+const loader = document.getElementById("loader");
 let forecastData_ = null;
 let tempToF = false;
 
@@ -16,7 +18,11 @@ toggle.addEventListener("click", (e) => {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    fetchWeather().then((forecastData) => {
+    loader.classList.remove("hidden");
+    table.classList.add("hidden");
+    const formData = new FormData(e.target);
+
+    fetchWeather(formData.get("city")).then((forecastData) => {
         forecastData_ = forecastData;
         buildForecastTable(forecastData);
     });
@@ -57,8 +63,8 @@ async function buildForecastTable(forecastData) {
     }
 }
 
-function fetchWeather() {
-    return fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/S%C3%A3o%20Paulo?unitGroup=metric&key=XVLFKAYTP2KW8WEYVYKTGBFG7&contentType=json", {
+function fetchWeather(cityName) {
+    return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}?unitGroup=metric&key=XVLFKAYTP2KW8WEYVYKTGBFG7&contentType=json`, {
         method: 'GET',
         headers: {
         }
@@ -70,7 +76,6 @@ function fetchWeather() {
             return response.json(); // Parse the response as JSON
         })
         .then(data => {
-            console.log("Weather data for São Paulo:", data);
             return data;
         })
         .catch(errorResponse => {
@@ -81,7 +86,11 @@ function fetchWeather() {
             } else {
                 console.error("Unexpected error occurred.");
             }
-        });
+        }).finally(() => {
+            loader.classList.add("hidden");
+            table.classList.remove("hidden");
+
+        })
 }
 
 function buscarGif() {
