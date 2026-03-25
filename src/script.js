@@ -1,7 +1,9 @@
 console.log("script");
 import "./style.css";
 
-// document.getElementById("pesquisar").addEventListener("click", buscarGif);
+const GIPHY_API_KEY = "bb2006d9d3454578be1a99cfad65913d";
+const WEATHER_API_KEY = "XVLFKAYTP2KW8WEYVYKTGBFG7";
+
 const form = document.querySelector("form");
 const table = document.querySelector("table");
 const body = document.querySelector("body");
@@ -101,7 +103,7 @@ async function buildForecastTable(forecastData) {
 }
 
 function fetchWeather(cityName) {
-    return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}?unitGroup=metric&key=XVLFKAYTP2KW8WEYVYKTGBFG7&contentType=json`, {
+    return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}?unitGroup=metric&key=${WEATHER_API_KEY}&contentType=json`, {
         method: 'GET',
         headers: {
         }
@@ -132,7 +134,7 @@ function fetchWeather(cityName) {
 
 async function buscarGif(searchTerm) {
     try {
-        const response = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=bb2006d9d3454578be1a99cfad65913d&s=' + searchTerm + " weather")
+        const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${GIPHY_API_KEY}&s=${searchTerm} weather`)
         const gifData = await response.json();
         return gifData.data.images.original.url;
     } catch (error) {
