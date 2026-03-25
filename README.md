@@ -62,6 +62,10 @@ Uma aplicação de previsão do tempo totalmente funcional contendo:
   - Visual Crossing Weather API
   - Giphy API
 
+## Visualização
+<img width="1920" height="919" alt="image" src="https://github.com/user-attachments/assets/812114fd-6b55-46d8-a987-e172b8831b40" />
+
+
 ---
 
 Projeto desenvolvido seguindo: [The Odin Project - Weather App](https://www.theodinproject.com/lessons/node-path-javascript-weather-app)
