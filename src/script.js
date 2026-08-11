@@ -1,8 +1,8 @@
 console.log("script");
 import "./style.css";
 
-const GIPHY_API_KEY = "aaa";
-const WEATHER_API_KEY = "aaa";
+const GIPHY_API_KEY = "";
+const WEATHER_API_KEY = "";
 
 const form = document.querySelector("form");
 const table = document.querySelector("table");
